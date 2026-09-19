@@ -73,6 +73,19 @@ class Scanner {
                     while (peek() != '\n' && !isAtEnd()) {
                         advance();
                     }
+                } else if (match('*')) {
+                    while (!isAtEnd() && !(peek() == '*' && peekNext() == '/')) {
+                        if (peek() == '\n')
+                            line++;
+                        advance();
+                    }
+
+                    if (isAtEnd()) {
+                        Lox.error(line, "Unterminated block comment");
+                    } else {
+                        advance(); // for * character
+                        advance(); // for / character
+                    }
                 } else {
                     addToken(SLASH);
                 }

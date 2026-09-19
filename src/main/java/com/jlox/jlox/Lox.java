@@ -38,8 +38,11 @@ public class Lox {
         for (;;) {
             System.out.print("> ");
             String line = reader.readLine();
-            if (line == null)
+            if (line == null) {
                 break;
+            } else if (line.equals("\\e")) {
+                System.exit(0);
+            }
             run(line);
             hadError = false;
         }
